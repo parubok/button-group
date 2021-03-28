@@ -5,7 +5,7 @@
 
   <groupId>org.swingk.button.group</groupId>
   <artifactId>button-group</artifactId>
-  <version>1.0</version>
+  <version>1.1-SNAPSHOT</version>
 
   <name>button-group</name>
   <url>https://github.com/parubok/button-group</url>
@@ -27,7 +27,7 @@
     <connection>scm:git:git@github.com:parubok/button-group</connection>
     <url>scm:git:git@github.com:parubok/button-group</url>
     <developerConnection>scm:git:git@github.com:parubok/button-group</developerConnection>
-    <tag>v1.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <build>

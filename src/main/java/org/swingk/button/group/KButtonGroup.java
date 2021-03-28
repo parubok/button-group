@@ -21,6 +21,12 @@ import java.util.Vector;
  */
 public class KButtonGroup<K extends AbstractButton> {
 
+    private static class SwingButtonGroup extends ButtonGroup {
+        Vector<AbstractButton> getButtons() {
+            return buttons;
+        }
+    }
+
     private final SwingButtonGroup group;
     private final boolean autoSelectFirstButton;
     private final List<ItemListener> listeners = new ArrayList<>();
@@ -42,7 +48,7 @@ public class KButtonGroup<K extends AbstractButton> {
     }
 
     /**
-     * Constructor.
+     * Constructs group with the specified buttons.
      *
      * @param buttons Buttons to add to the group.
      */
@@ -52,7 +58,7 @@ public class KButtonGroup<K extends AbstractButton> {
     }
 
     /**
-     * Constructor.
+     * Constructs an empty group.
      *
      * @param autoSelectFirstButton If true, the first added button will be automatically selected via
      * {@link AbstractButton#setSelected(boolean)}.
@@ -150,11 +156,5 @@ public class KButtonGroup<K extends AbstractButton> {
             buttonList.add((K) buttons.get(i));
         }
         return buttonList;
-    }
-
-    private static class SwingButtonGroup extends ButtonGroup {
-        Vector<AbstractButton> getButtons() {
-            return buttons;
-        }
     }
 }

@@ -24,6 +24,13 @@
     </dependency>
   </dependencies>
 
+  <scm>
+    <connection>scm:git:git@github.com:parubok/button-group</connection>
+    <url>scm:git:git@github.com:parubok/button-group</url>
+    <developerConnection>scm:git:git@github.com:parubok/button-group</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
   <build>
     <plugins>
       <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->

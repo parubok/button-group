@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.JRadioButton;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,14 @@ public class KButtonGroupTest {
         Assertions.assertEquals(List.of(rb1, rb2), group.getButtons());
         Assertions.assertEquals(rb1, group.getButton(0));
         Assertions.assertEquals(rb2, group.getButton(1));
+        Assertions.assertTrue(group.isEnabled(0));
+        Assertions.assertTrue(group.isEnabled(1));
 
         rb2.setSelected(true);
         Assertions.assertFalse(rb1.isSelected());
         Assertions.assertTrue(rb2.isSelected());
-        rb1.setSelected(true);
+
+        group.setSelectedIndex(0);
         Assertions.assertTrue(rb1.isSelected());
         Assertions.assertFalse(rb2.isSelected());
     }
@@ -59,5 +63,17 @@ public class KButtonGroupTest {
         Assertions.assertEquals(2, events.size());
         Assertions.assertEquals(rb3, events.get(1).getItem());
         Assertions.assertEquals(ItemEvent.SELECTED, events.get(1).getStateChange());
+    }
+
+    @Test
+    public void setMnemonics() {
+        JRadioButton rb1 = new JRadioButton("abc");
+        JRadioButton rb2 = new JRadioButton("abc");
+        JRadioButton rb3 = new JRadioButton("abc");
+        var group = KButtonGroup.of(rb1, rb2, rb3);
+        group.setMnemonics();
+        Assertions.assertEquals(KeyEvent.VK_A, rb1.getMnemonic());
+        Assertions.assertEquals(KeyEvent.VK_B, rb2.getMnemonic());
+        Assertions.assertEquals(KeyEvent.VK_C, rb3.getMnemonic());
     }
 }

@@ -94,8 +94,8 @@ public class KButtonGroup<K extends AbstractButton> {
     }
 
     /**
-     * TODO: Javadoc
-     * TODO: migrate to using {@link AbstractButton#setMnemonic(int)}
+     * TODO: Javadoc.
+     * TODO: Use {@link AbstractButton#setMnemonic(int)}.
      */
     public void setMnemonics() {
         Vector<AbstractButton> buttons = group.getButtons();

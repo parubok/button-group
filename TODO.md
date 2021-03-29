@@ -1,0 +1,1 @@
+Use {@link AbstractButton#setMnemonic(int)}.

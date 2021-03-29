@@ -99,8 +99,9 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
     }
 
     /**
-     * TODO: Javadoc.
-     * TODO: Use {@link AbstractButton#setMnemonic(int)}.
+     * Auto-assigns mnemonic characters to the buttons of this group.
+     *
+     * @see AbstractButton#setMnemonic(char)
      */
     public void setMnemonics() {
         var usedChars = new HashSet<Character>();
@@ -108,7 +109,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
             String text = button.getText();
             for (int i = 0; i < text.length(); i++) {
                 char c = text.charAt(i);
-                // mnemonics underscore visually conflicts with 'y' letter
+                // mnemonic's underscore visually conflicts with 'y' letter
                 if (!usedChars.contains(c) && !Character.isWhitespace(c) && c != 'y') {
                     button.setMnemonic(c);
                     usedChars.add(c);

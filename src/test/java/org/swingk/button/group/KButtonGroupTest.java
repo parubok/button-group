@@ -34,19 +34,11 @@ public class KButtonGroupTest {
     }
 
     @Test
-    public void KButtonGroup_of() {
-        JRadioButton rb1 = new JRadioButton("rb1");
-        JRadioButton rb2 = new JRadioButton("rb2");
-        var group = KButtonGroup.of(rb1, rb2);
-        Assertions.assertEquals(List.of(rb1, rb2), group.getButtons());
-    }
-
-    @Test
     public void addItemListener() {
         JRadioButton rb1 = new JRadioButton("rb1");
         JRadioButton rb2 = new JRadioButton("rb2");
         JRadioButton rb3 = new JRadioButton("rb3");
-        var group = KButtonGroup.of(rb1, rb2, rb3);
+        var group = new KButtonGroup<>(rb1, rb2, rb3);
         var events = new ArrayList<ItemEvent>();
         group.addItemListener(events::add);
         rb2.setSelected(true);
@@ -68,7 +60,7 @@ public class KButtonGroupTest {
         JRadioButton rb1 = new JRadioButton("abc");
         JRadioButton rb2 = new JRadioButton("abc");
         JRadioButton rb3 = new JRadioButton("abc");
-        var group = KButtonGroup.of(rb1, rb2, rb3);
+        var group = new KButtonGroup<>(rb1, rb2, rb3);
         group.setMnemonics();
         Assertions.assertEquals(KeyEvent.VK_A, rb1.getMnemonic());
         Assertions.assertEquals(KeyEvent.VK_B, rb2.getMnemonic());

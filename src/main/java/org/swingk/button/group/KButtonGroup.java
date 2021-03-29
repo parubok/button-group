@@ -60,11 +60,6 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
         this.autoSelectFirstButton = autoSelectFirstButton;
     }
 
-    @SafeVarargs
-    public static <K extends AbstractButton> KButtonGroup<K> of(K... buttons) {
-        return new KButtonGroup<>(buttons);
-    }
-
     /**
      * @param button Button to add to the group. Not null.
      */

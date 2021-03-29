@@ -99,14 +99,13 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
      */
     public void setMnemonics() {
         var usedChars = new HashSet<Character>();
-        for (int j = 0; j < buttons.size(); j++) {
-            AbstractButton b = buttons.get(j);
-            String text = b.getText();
+        for (AbstractButton button : buttons) {
+            String text = button.getText();
             for (int i = 0; i < text.length(); i++) {
                 char c = text.charAt(i);
                 // mnemonics underscore visually conflicts with 'y' letter
                 if (!usedChars.contains(c) && !Character.isWhitespace(c) && c != 'y') {
-                    b.setMnemonic(c);
+                    button.setMnemonic(c);
                     usedChars.add(c);
                     break;
                 }
@@ -142,8 +141,8 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
     public List<K> getButtons() {
         final int s = buttons.size();
         var buttonList = new ArrayList<K>(s);
-        for (int i = 0; i < s; i++) {
-            buttonList.add((K) buttons.get(i));
+        for (AbstractButton button : buttons) {
+            buttonList.add((K) button);
         }
         return buttonList;
     }

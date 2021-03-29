@@ -74,12 +74,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
      * @param button Button to add to the group. Not null.
      */
     public void addButton(K button) {
-        Objects.requireNonNull(button);
         add(button);
-        if (autoSelectFirstButton && getButtonCount() == 1) {
-            button.setSelected(true);
-        }
-        button.addItemListener(buttonListener);
     }
 
     /**
@@ -87,7 +82,12 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
      */
     @Deprecated
     public void add(AbstractButton button) {
+        Objects.requireNonNull(button);
         super.add(button);
+        if (autoSelectFirstButton && getButtonCount() == 1) {
+            button.setSelected(true);
+        }
+        button.addItemListener(buttonListener);
     }
 
     /**

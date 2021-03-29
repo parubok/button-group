@@ -8,6 +8,7 @@ Extension of `javax.swing.ButtonGroup` which adds the following functionality:
 - Auto-selects 1st added button.
 - Listeners.
 - Mnemonics.
+- Access to the buttons by index.
 
 This library is packaged as a Java 9 module `org.swingk.button.group` (with a single dependency on a system module `java.desktop`). 
 

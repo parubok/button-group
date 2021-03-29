@@ -16,6 +16,7 @@ import java.util.Objects;
  * <li>Auto-selects 1st added button.</li>
  * <li>Listeners.</li>
  * <li>Mnemonics.</li>
+ * <li>Access to the buttons by index.</li>
  * </ul>
  */
 public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {

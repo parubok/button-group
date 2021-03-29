@@ -29,13 +29,18 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
         }
     };
 
+    /**
+     * Constructs group with the specified buttons. The first added button will be automatically selected.
+     *
+     * @param buttons Buttons to add to the group.
+     */
     @SafeVarargs
     public KButtonGroup(K... buttons) {
         this(List.of(buttons));
     }
 
     /**
-     * Constructs group with the specified buttons.
+     * Constructs group with the specified buttons. The first added button will be automatically selected.
      *
      * @param buttons Buttons to add to the group.
      */

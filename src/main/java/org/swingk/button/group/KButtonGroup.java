@@ -69,6 +69,13 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
         add(button);
     }
 
+    @SafeVarargs
+    public final void addButtons(K... buttons) {
+        for (K button : buttons) {
+            addButton(button);
+        }
+    }
+
     /**
      * @deprecated This method is not type-safe. Use {@link #addButton(AbstractButton)} instead.
      */
@@ -137,6 +144,10 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
         return -1;
     }
 
+    /**
+     * @param index Index of the button to select.
+     * @see #getSelectedIndex()
+     */
     public void setSelectedIndex(int index) {
         buttons.get(index).setSelected(true);
     }

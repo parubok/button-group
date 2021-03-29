@@ -34,6 +34,29 @@ public class KButtonGroupTest {
     }
 
     @Test
+    public void allSelected() {
+        JRadioButton rb1 = new JRadioButton("rb1", true);
+        JRadioButton rb2 = new JRadioButton("rb2", true);
+        var group = new KButtonGroup<>(false);
+        group.addButton(rb1);
+        group.addButton(rb2);
+        Assertions.assertTrue(rb1.isSelected());
+        Assertions.assertFalse(rb2.isSelected());
+    }
+
+    @Test
+    public void allUnselected() {
+        JRadioButton rb1 = new JRadioButton("rb1", false);
+        JRadioButton rb2 = new JRadioButton("rb2", false);
+        var group = new KButtonGroup<>(false);
+        group.addButtons(rb1, rb2);
+        Assertions.assertFalse(rb1.isSelected());
+        Assertions.assertFalse(rb2.isSelected());
+        Assertions.assertEquals(-1, group.getSelectedIndex());
+        Assertions.assertNull(group.getSelectedButton());
+    }
+
+    @Test
     public void addItemListener() {
         JRadioButton rb1 = new JRadioButton("rb1");
         JRadioButton rb2 = new JRadioButton("rb2");
@@ -44,6 +67,7 @@ public class KButtonGroupTest {
         rb2.setSelected(true);
         Assertions.assertEquals(1, events.size());
         Assertions.assertEquals(rb2, events.get(0).getItem());
+        Assertions.assertEquals(rb2, events.get(0).getSource());
         Assertions.assertEquals(ItemEvent.SELECTED, events.get(0).getStateChange());
 
         rb2.setSelected(true);
@@ -52,6 +76,7 @@ public class KButtonGroupTest {
         rb3.setSelected(true);
         Assertions.assertEquals(2, events.size());
         Assertions.assertEquals(rb3, events.get(1).getItem());
+        Assertions.assertEquals(rb3, events.get(1).getSource());
         Assertions.assertEquals(ItemEvent.SELECTED, events.get(1).getStateChange());
     }
 

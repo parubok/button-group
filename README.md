@@ -3,7 +3,7 @@
 
 # button-group
 
-Button group which, comparing to the standard `javax.swing.ButtonGroup`, adds the following functionality:
+Extension of `javax.swing.ButtonGroup` which adds the following functionality:
 - Type-safety via generics.
 - Auto-selects 1st added button.
 - Listeners.

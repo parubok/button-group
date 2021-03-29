@@ -23,8 +23,6 @@ public class KButtonGroupTest {
         Assertions.assertEquals(List.of(rb1, rb2), group.getButtons());
         Assertions.assertEquals(rb1, group.getButton(0));
         Assertions.assertEquals(rb2, group.getButton(1));
-        Assertions.assertTrue(group.isEnabled(0));
-        Assertions.assertTrue(group.isEnabled(1));
 
         rb2.setSelected(true);
         Assertions.assertFalse(rb1.isSelected());

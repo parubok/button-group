@@ -120,7 +120,8 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
     }
 
     public K getSelectedButton() {
-        return getButton(getSelectedIndex());
+        int index = getSelectedIndex();
+        return index > -1 ? getButton(index) : null;
     }
 
     public int getSelectedIndex() {

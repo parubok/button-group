@@ -61,11 +61,6 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
     }
 
     @SafeVarargs
-    public static <K extends AbstractButton> void group(K... buttons) {
-        of(buttons);
-    }
-
-    @SafeVarargs
     public static <K extends AbstractButton> KButtonGroup<K> of(K... buttons) {
         return new KButtonGroup<>(buttons);
     }
@@ -81,6 +76,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
      * @deprecated This method is not type-safe. Use {@link #addButton(AbstractButton)} instead.
      */
     @Deprecated
+    @Override
     public void add(AbstractButton button) {
         Objects.requireNonNull(button);
         super.add(button);

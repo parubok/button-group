@@ -1,1 +1,2 @@
-Use {@link AbstractButton#setMnemonic(int)}.
+- Use `AbstractButton#setMnemonic(int)`.
+- JavaDocs.

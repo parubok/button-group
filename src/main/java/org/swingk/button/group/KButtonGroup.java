@@ -5,6 +5,7 @@ import javax.swing.ButtonGroup;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -83,7 +84,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
     }
 
     /**
-     * An event will be fired when a state of the items is changed.
+     * An event will be fired when a button in the group is selected.
      */
     public void addItemListener(ItemListener itemListener) {
         Objects.requireNonNull(itemListener);
@@ -115,11 +116,17 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
         return (K) buttons.get(index);
     }
 
+    /**
+     * @return The group's selected button or {@code null} if no button is selected.
+     */
     public K getSelectedButton() {
         int index = getSelectedIndex();
         return index > -1 ? getButton(index) : null;
     }
 
+    /**
+     * @return Index of the group's selected button or -1 if no button is selected.
+     */
     public int getSelectedIndex() {
         for (int i = 0; i < buttons.size(); i++) {
             AbstractButton b = buttons.get(i);
@@ -138,11 +145,6 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
      * @return Buttons of this group.
      */
     public List<K> getButtons() {
-        final int s = buttons.size();
-        var buttonList = new ArrayList<K>(s);
-        for (AbstractButton button : buttons) {
-            buttonList.add((K) button);
-        }
-        return buttonList;
+        return Collections.unmodifiableList((List<K>) buttons);
     }
 }

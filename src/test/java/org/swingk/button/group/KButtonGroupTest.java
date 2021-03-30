@@ -7,6 +7,7 @@ import javax.swing.JRadioButton;
 import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class KButtonGroupTest {
@@ -17,6 +18,8 @@ public class KButtonGroupTest {
         var group = new KButtonGroup<>(List.of(rb1, rb2));
         Assertions.assertTrue(rb1.isSelected());
         Assertions.assertFalse(rb2.isSelected());
+        Assertions.assertEquals(group, rb1.getModel().getGroup());
+        Assertions.assertEquals(group, rb2.getModel().getGroup());
         Assertions.assertEquals(0, group.getSelectedIndex());
         Assertions.assertEquals(2, group.getButtonCount());
         Assertions.assertEquals(rb1, group.getSelectedButton());
@@ -38,8 +41,9 @@ public class KButtonGroupTest {
         JRadioButton rb1 = new JRadioButton("rb1", true);
         JRadioButton rb2 = new JRadioButton("rb2", true);
         var group = new KButtonGroup<>(false);
-        group.addButton(rb1);
-        group.addButton(rb2);
+        Assertions.assertEquals(Collections.emptyList(), group.getButtons());
+        group.addButtons(rb1, rb2);
+        Assertions.assertEquals(List.of(rb1, rb2), group.getButtons());
         Assertions.assertTrue(rb1.isSelected());
         Assertions.assertFalse(rb2.isSelected());
     }

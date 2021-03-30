@@ -119,6 +119,9 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
         }
     }
 
+    /**
+     * @return Button at the specified index.
+     */
     public K getButton(int index) {
         return (K) buttons.get(index);
     }

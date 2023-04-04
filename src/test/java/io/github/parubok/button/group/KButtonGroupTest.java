@@ -1,10 +1,9 @@
-package org.swingk.button.group;
+package io.github.parubok.button.group;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.JRadioButton;
-import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -66,22 +65,24 @@ public class KButtonGroupTest {
         JRadioButton rb2 = new JRadioButton("rb2");
         JRadioButton rb3 = new JRadioButton("rb3");
         var group = new KButtonGroup<>(rb1, rb2, rb3);
-        var events = new ArrayList<ItemEvent>();
-        group.addItemListener(events::add);
+        var events = new ArrayList<KButtonGroupEvent<JRadioButton>>();
+        group.addListener(events::add);
         rb2.setSelected(true);
         Assertions.assertEquals(1, events.size());
-        Assertions.assertEquals(rb2, events.get(0).getItem());
-        Assertions.assertEquals(rb2, events.get(0).getSource());
-        Assertions.assertEquals(ItemEvent.SELECTED, events.get(0).getStateChange());
+        KButtonGroupEvent<JRadioButton> event = events.get(0);
+        Assertions.assertEquals(rb2, event.getSelectedButton());
+        Assertions.assertNull(event.getPrevSelectedButton());
+        Assertions.assertEquals(group, event.getSource());
 
         rb2.setSelected(true);
         Assertions.assertEquals(1, events.size());
 
         rb3.setSelected(true);
         Assertions.assertEquals(2, events.size());
-        Assertions.assertEquals(rb3, events.get(1).getItem());
-        Assertions.assertEquals(rb3, events.get(1).getSource());
-        Assertions.assertEquals(ItemEvent.SELECTED, events.get(1).getStateChange());
+        event = events.get(1);
+        Assertions.assertEquals(rb3, event.getSelectedButton());
+        Assertions.assertEquals(rb2, event.getPrevSelectedButton());
+        Assertions.assertEquals(group, event.getSource());
     }
 
     @Test

@@ -8,11 +8,47 @@
   <version>1.4-SNAPSHOT</version>
 
   <name>button-group</name>
+  <description>Extension of javax.swing.ButtonGroup</description>
   <url>https://github.com/parubok/button-group</url>
+
+  <developers>
+    <developer>
+      <id>parubok</id>
+      <name>Eli Rosenblum</name>
+      <email>eliahu.rosenblum@gmail.com</email>
+    </developer>
+  </developers>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
+  <distributionManagement>
+    <snapshotRepository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+    </snapshotRepository>
+    <repository>
+      <id>ossrh</id>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+    </repository>
+  </distributionManagement>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+  <scm>
+    <connection>scm:git:git@github.com:parubok/button-group</connection>
+    <url>scm:git:git@github.com:parubok/button-group</url>
+    <developerConnection>scm:git:git@github.com:parubok/button-group</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
 
   <dependencies>
     <dependency>
@@ -22,13 +58,6 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <scm>
-    <connection>scm:git:git@github.com:parubok/button-group</connection>
-    <url>scm:git:git@github.com:parubok/button-group</url>
-    <developerConnection>scm:git:git@github.com:parubok/button-group</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
 
   <build>
     <plugins>

@@ -1,9 +1,9 @@
-package org.swingk.button.group;
+package io.github.parubok.button.group;
 
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
+import javax.swing.event.EventListenerList;
 import java.awt.event.ItemListener;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -11,23 +11,33 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Extension of {@link ButtonGroup} which adds the following functionality:
+ * Extension of Swing {@link ButtonGroup} which adds the following functionality:
  * <ul>
  * <li>Type-safety via generics.</li>
  * <li>Auto-selects 1st added button.</li>
- * <li>Listeners.</li>
+ * <li>Group listeners.</li>
  * <li>Mnemonics.</li>
  * <li>Access to the buttons by index.</li>
  * </ul>
+ *
+ * @implNote Adds {@link ItemListener} to the buttons in the group.
  */
 public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
 
     private final boolean autoSelectFirstButton;
-    private final List<ItemListener> listeners = new ArrayList<>();
+    private final EventListenerList listeners = new EventListenerList();
+    private K lastSelectedButton;
+
     private final ItemListener buttonListener = e -> {
-        AbstractButton b = (AbstractButton) e.getSource();
+        var b = (K) e.getSource();
         if (b.isSelected()) {
-            listeners.forEach(listener -> listener.itemStateChanged(e));
+            if (listeners.getListenerCount() > 0) {
+                var event = new KButtonGroupEvent<K>(KButtonGroup.this, b, lastSelectedButton);
+                for (KButtonGroupListener<K> listener : listeners.getListeners(KButtonGroupListener.class)) {
+                    listener.onSelection(event);
+                }
+            }
+            lastSelectedButton = b;
         }
     };
 
@@ -93,9 +103,12 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
     /**
      * An event will be fired when a button in the group is selected.
      */
-    public void addItemListener(ItemListener itemListener) {
-        Objects.requireNonNull(itemListener);
-        listeners.add(itemListener);
+    public void addListener(KButtonGroupListener<K> listener) {
+        listeners.add(KButtonGroupListener.class, listener);
+    }
+
+    public void removeListener(KButtonGroupListener<K> listener) {
+        listeners.remove(KButtonGroupListener.class, listener);
     }
 
     /**

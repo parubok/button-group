@@ -1,3 +1,5 @@
+- Use EventListenerList, not List
+- Event should incl. prev. selected item/index
 - Use `AbstractButton#setMnemonic(int)`.
 - JavaDocs.
 - Example.

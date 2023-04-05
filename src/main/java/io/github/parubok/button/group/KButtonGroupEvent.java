@@ -3,6 +3,9 @@ package io.github.parubok.button.group;
 import javax.swing.AbstractButton;
 import java.util.EventObject;
 
+/**
+ * @param <K> Type of the buttons in the group.
+ */
 public class KButtonGroupEvent<K extends AbstractButton> extends EventObject {
 
     private final K selectedButton;
@@ -14,10 +17,16 @@ public class KButtonGroupEvent<K extends AbstractButton> extends EventObject {
         this.prevSelectedButton = prevSelectedButton;
     }
 
+    /**
+     * @return Currently selected button. May be {@code null}.
+     */
     public K getSelectedButton() {
         return selectedButton;
     }
 
+    /**
+     * @return Previously selected button. May be {@code null}.
+     */
     public K getPrevSelectedButton() {
         return prevSelectedButton;
     }

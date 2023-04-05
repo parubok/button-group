@@ -20,6 +20,7 @@ import java.util.Objects;
  * <li>Access to the buttons by index.</li>
  * </ul>
  *
+ * @param <K> Type of the buttons in the group.
  * @implNote Adds {@link ItemListener} to the buttons in the group.
  */
 public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
@@ -34,7 +35,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
             if (listeners.getListenerCount() > 0) {
                 var event = new KButtonGroupEvent<K>(KButtonGroup.this, b, lastSelectedButton);
                 for (KButtonGroupListener<K> listener : listeners.getListeners(KButtonGroupListener.class)) {
-                    listener.onSelection(event);
+                    listener.onSelectionChange(event);
                 }
             }
             lastSelectedButton = b;
@@ -107,7 +108,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
     }
 
     /**
-     * An event will be fired when a button in the group is selected.
+     * An event will be fired when selection in the group changes.
      */
     public void addListener(KButtonGroupListener<K> listener) {
         listeners.add(KButtonGroupListener.class, listener);

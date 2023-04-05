@@ -100,6 +100,12 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
         button.addItemListener(buttonListener);
     }
 
+    @Override
+    public void remove(AbstractButton b) {
+        // TODO: remove listener
+        super.remove(b);
+    }
+
     /**
      * An event will be fired when a button in the group is selected.
      */

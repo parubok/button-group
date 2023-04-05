@@ -9,8 +9,5 @@
         <module name="button-group" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="button-group" target="11" />
-    </bytecodeTargetLevel>
   </component>
 </project>

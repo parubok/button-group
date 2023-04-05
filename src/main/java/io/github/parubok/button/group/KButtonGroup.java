@@ -188,4 +188,9 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
     public Iterator<K> iterator() {
         return getButtons().iterator();
     }
+
+    @Override
+    public String toString() {
+        return super.toString(); // TODO
+    }
 }

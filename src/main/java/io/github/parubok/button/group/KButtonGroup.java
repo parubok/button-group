@@ -7,6 +7,7 @@ import java.awt.event.ItemListener;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,12 +19,13 @@ import java.util.Objects;
  * <li>Group listeners.</li>
  * <li>Mnemonics.</li>
  * <li>Access to the buttons by index.</li>
+ * <li>Implements {@link Iterable} to iterate over buttons in the group.</li>
  * </ul>
  *
  * @param <K> Type of the buttons in the group.
  * @implNote Adds {@link ItemListener} to the buttons in the group.
  */
-public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
+public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implements Iterable<K> {
 
     private final boolean autoSelectFirstButton;
     private final EventListenerList listeners = new EventListenerList();
@@ -176,9 +178,14 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup {
     }
 
     /**
-     * @return Buttons of this group.
+     * @return Buttons of this group as unmodifiable {@link List}.
      */
     public List<K> getButtons() {
         return Collections.unmodifiableList((List<K>) buttons);
+    }
+
+    @Override
+    public Iterator<K> iterator() {
+        return getButtons().iterator();
     }
 }

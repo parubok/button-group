@@ -8,11 +8,13 @@ import javax.swing.SwingUtilities;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class KButtonGroupTest {
     @Test
-    public void basicTest_1() throws Exception {
+    public void basicTest() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             JRadioButton rb1 = new JRadioButton("rb1");
             JRadioButton rb2 = new JRadioButton("rb2");
@@ -108,6 +110,34 @@ public class KButtonGroupTest {
             Assertions.assertEquals(KeyEvent.VK_A, rb1.getMnemonic());
             Assertions.assertEquals(KeyEvent.VK_B, rb2.getMnemonic());
             Assertions.assertEquals(KeyEvent.VK_C, rb3.getMnemonic());
+        });
+    }
+
+    @Test
+    public void iterator() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            var rb1 = new JRadioButton("1");
+            var rb2 = new JRadioButton("2");
+            var group = new KButtonGroup<>(rb1, rb2);
+            Iterator<JRadioButton> iter = group.iterator();
+            Assertions.assertTrue(iter.hasNext());
+            Assertions.assertEquals(rb1, iter.next());
+            Assertions.assertTrue(iter.hasNext());
+            Assertions.assertEquals(rb2, iter.next());
+            Assertions.assertFalse(iter.hasNext());
+            Assertions.assertThrows(NoSuchElementException.class, iter::next); // 1
+            Assertions.assertThrows(NoSuchElementException.class, iter::next); // 2
+        });
+    }
+
+    @Test
+    public void iteratorRemove() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            var rb1 = new JRadioButton("1");
+            var rb2 = new JRadioButton("2");
+            var group = new KButtonGroup<>(rb1, rb2);
+            Iterator<JRadioButton> iter = group.iterator();
+            Assertions.assertThrows(UnsupportedOperationException.class, iter::remove);
         });
     }
 }

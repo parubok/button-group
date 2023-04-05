@@ -9,6 +9,7 @@ This small library provides a subclass of `javax.swing.ButtonGroup` which adds t
 - Listeners.
 - Mnemonics.
 - Access to the buttons by index.
+- Implements `Iterable` to iterate over buttons in the group.
 
 Example:
 ```java

@@ -110,7 +110,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
     }
 
     /**
-     * An event will be fired when selection in the group changes.
+     * {@link KButtonGroupEvent} will be fired when there is a new selected button in the group.
      */
     public void addListener(KButtonGroupListener<K> listener) {
         listeners.add(KButtonGroupListener.class, listener);

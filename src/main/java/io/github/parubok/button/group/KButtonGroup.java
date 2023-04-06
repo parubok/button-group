@@ -96,17 +96,17 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
     @Override
     public void add(AbstractButton button) {
         Objects.requireNonNull(button);
-        super.add(button);
-        if (autoSelectFirstButton && getButtonCount() == 1) {
+        if (autoSelectFirstButton && getButtonCount() == 0) {
             button.setSelected(true);
         }
+        super.add(button);
         button.addItemListener(buttonListener);
     }
 
     @Override
-    public void remove(AbstractButton b) {
-        // TODO: remove listener
-        super.remove(b);
+    public void remove(AbstractButton button) {
+        button.removeItemListener(buttonListener);
+        super.remove(button);
     }
 
     /**

@@ -93,9 +93,22 @@ public class KButtonGroupTest {
     }
 
     @Test
-    public void unselectAllButtons() throws Exception {
-        // TODO
+    public void clearSelection() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
+            var rb1 = new JRadioButton("1");
+            var rb2 = new JRadioButton("2");
+            var group = new KButtonGroup<>(rb1, rb2);
+            Assertions.assertTrue(rb1.isSelected());
+            Assertions.assertFalse(rb2.isSelected());
+            var events = new ArrayList<KButtonGroupEvent<JRadioButton>>();
+            group.addListener(events::add);
+            group.clearSelection();
+            Assertions.assertFalse(rb1.isSelected());
+            Assertions.assertFalse(rb2.isSelected());
+            Assertions.assertEquals(0, events.size());
+//            KButtonGroupEvent<JRadioButton> event = events.get(0);
+//            Assertions.assertEquals(rb1, event.getPrevSelectedButton());
+//            Assertions.assertNull(event.getSelectedButton());
         });
     }
 

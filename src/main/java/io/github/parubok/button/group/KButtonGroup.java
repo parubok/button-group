@@ -189,8 +189,14 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
         return getButtons().iterator();
     }
 
+    public boolean isAutoSelectFirstButton() {
+        return autoSelectFirstButton;
+    }
+
     @Override
     public String toString() {
-        return super.toString(); // TODO
+        return getClass().getName()
+                + "[autoSelectFirstButton=" + isAutoSelectFirstButton()
+                + ",buttons=" + getButtons() + "]";
     }
 }

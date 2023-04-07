@@ -6,9 +6,9 @@
 
 This small library provides a subclass of `javax.swing.ButtonGroup` which adds the following functionality:
 - Type-safety via generics.
-- Auto-selects 1st added button.
-- Listeners.
-- Mnemonics.
+- Selects 1st added button by default.
+- Selection change listeners (see `io.github.parubok.button.group.KButtonGroupListener`).
+- Assigns button mnemonics.
 - Access to the buttons by index.
 - Implements `Iterable` to iterate over buttons in the group.
 
@@ -20,7 +20,7 @@ import io.github.parubok.button.group.KButtonGroup;
 
 var radio1 = new JRadioButton("1");
 var radio2 = new JRadioButton("2");
-var group = new KButtonGroup(radio1, radio2);
+var group = new KButtonGroup<>(radio1, radio2);
 ```
 
 This library is packaged as a Java 9 module `io.github.parubok.button.group` (with a single dependency on a system module `java.desktop`). 

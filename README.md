@@ -24,7 +24,7 @@ var radio1 = new JRadioButton("Option A");
 var radio2 = new JRadioButton("Option B");
 var radio3 = new JRadioButton("Option C");
 var group = new KButtonGroup<>(radio1, radio2, radio3);
-group.addListener(new KButtonGroupListener() {
+group.addListener(new KButtonGroupListener<JRadioButton>() {
             @Override
             public void onSelectionChange(KButtonGroupEvent<JRadioButton> e) {
                 System.out.println("Button selected: " + e.getSelectedButton());

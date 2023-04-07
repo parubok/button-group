@@ -5,7 +5,7 @@
 
   <groupId>io.github.parubok</groupId>
   <artifactId>button-group</artifactId>
-  <version>1.4</version>
+  <version>1.5-SNAPSHOT</version>
 
   <name>button-group</name>
   <description>Extension of javax.swing.ButtonGroup</description>
@@ -47,7 +47,7 @@
     <connection>scm:git:git@github.com:parubok/button-group</connection>
     <url>scm:git:git@github.com:parubok/button-group</url>
     <developerConnection>scm:git:git@github.com:parubok/button-group</developerConnection>
-    <tag>v1.4</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <dependencies>

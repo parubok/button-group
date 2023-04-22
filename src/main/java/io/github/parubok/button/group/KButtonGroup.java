@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 /**
@@ -167,6 +168,16 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
             }
         }
         return -1;
+    }
+
+    /**
+     * @return Maximum button index in the group.
+     */
+    public int getLastIndex() {
+        if (buttons.isEmpty()) {
+            throw new NoSuchElementException("Empty group");
+        }
+        return buttons.size() - 1;
     }
 
     /**

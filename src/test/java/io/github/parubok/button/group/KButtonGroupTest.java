@@ -98,6 +98,10 @@ public class KButtonGroupTest {
         });
     }
 
+    /**
+     * Tests that when the {@code KButtonGroupEvent} arrives, all buttons in the group are in their corresponding
+     * valid selection state.
+     */
     @Test
     public void addItemListener_validState() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
@@ -136,7 +140,7 @@ public class KButtonGroupTest {
             };
             group.addListener(listener);
             rb3.setSelected(true);
-            Assertions.assertEquals(2, c.get());
+            Assertions.assertEquals(2, c.get()); // make sure the listener has been called
         });
     }
 
@@ -153,10 +157,7 @@ public class KButtonGroupTest {
             group.clearSelection();
             Assertions.assertFalse(rb1.isSelected());
             Assertions.assertFalse(rb2.isSelected());
-            Assertions.assertEquals(0, events.size());
-//            KButtonGroupEvent<JRadioButton> event = events.get(0);
-//            Assertions.assertEquals(rb1, event.getPrevSelectedButton());
-//            Assertions.assertNull(event.getSelectedButton());
+            Assertions.assertEquals(0, events.size()); // clearSelection does not produce events!
         });
     }
 

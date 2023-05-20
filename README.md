@@ -1,14 +1,15 @@
 ![Java CI with Maven](https://github.com/parubok/button-group/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://github.com/parubok/button-group/blob/master/LICENSE)
 [![Latest Version](https://img.shields.io/maven-central/v/io.github.parubok/button-group)](https://search.maven.org/search?q=a:button-group)
+[![javadoc](https://javadoc.io/badge2/io.github.parubok/button-group/javadoc.svg)](https://javadoc.io/doc/io.github.parubok/button-group)
 
 # button-group
 
 This small library provides a subclass of `javax.swing.ButtonGroup` which adds the following functionality:
 - Type-safety via generics.
-- Selects 1st added button by default.
+- Selects first added button by default.
 - Selection change listeners (see `KButtonGroupListener`).
-- Assigns button mnemonics.
+- Allows to assign button mnemonics.
 - Access to the buttons by index.
 - Implements `Iterable` to iterate over buttons in the group.
 
@@ -47,14 +48,6 @@ Add this snippet to the pom.xml `dependencies` section:
 <dependency>
     <groupId>io.github.parubok</groupId>
     <artifactId>button-group</artifactId>
-    <version>1.5</version>
+    <version>1.6</version>
 </dependency>
-```
-
-#### Gradle
-
-Add this snippet to the build.gradle `dependencies` section:
-
-```groovy
-implementation 'io.github.parubok:button-group:1.5'
 ```

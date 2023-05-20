@@ -25,6 +25,7 @@ import java.util.Objects;
  *
  * @param <K> Type of the buttons in the group.
  * @implNote Adds {@link ItemListener} to the buttons in the group.
+ * @see javax.swing.ButtonModel#setGroup(ButtonGroup)
  */
 public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implements Iterable<K> {
 
@@ -112,6 +113,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
 
     /**
      * {@link KButtonGroupEvent} will be fired when there is a new selected button in the group.
+     * @implSpec No event is fired if the selection becomes empty.
      */
     public void addListener(KButtonGroupListener<K> listener) {
         listeners.add(KButtonGroupListener.class, listener);

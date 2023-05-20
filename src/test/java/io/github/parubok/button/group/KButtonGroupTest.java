@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class KButtonGroupTest {
     @Test
@@ -57,40 +58,86 @@ public class KButtonGroupTest {
 
     @Test
     public void allUnselected() throws Exception {
-        var rb1 = new JRadioButton("rb1", false);
-        var rb2 = new JRadioButton("rb2", false);
-        var group = new KButtonGroup<>(false);
-        group.addButtons(rb1, rb2);
-        Assertions.assertFalse(rb1.isSelected());
-        Assertions.assertFalse(rb2.isSelected());
-        Assertions.assertEquals(-1, group.getSelectedIndex());
-        Assertions.assertNull(group.getSelectedButton());
+        SwingUtilities.invokeAndWait(() -> {
+            var rb1 = new JRadioButton("rb1", false);
+            var rb2 = new JRadioButton("rb2", false);
+            var group = new KButtonGroup<>(false);
+            group.addButtons(rb1, rb2);
+            Assertions.assertFalse(rb1.isSelected());
+            Assertions.assertFalse(rb2.isSelected());
+            Assertions.assertEquals(-1, group.getSelectedIndex());
+            Assertions.assertNull(group.getSelectedButton());
+        });
     }
 
     @Test
     public void addItemListener() throws Exception {
-        var rb1 = new JRadioButton("rb1");
-        var rb2 = new JRadioButton("rb2");
-        var rb3 = new JRadioButton("rb3");
-        var group = new KButtonGroup<>(rb1, rb2, rb3);
-        var events = new ArrayList<KButtonGroupEvent<JRadioButton>>();
-        group.addListener(events::add);
-        rb2.setSelected(true);
-        Assertions.assertEquals(1, events.size());
-        KButtonGroupEvent<JRadioButton> event = events.get(0);
-        Assertions.assertEquals(rb2, event.getSelectedButton());
-        Assertions.assertNull(event.getPrevSelectedButton());
-        Assertions.assertEquals(group, event.getSource());
+        SwingUtilities.invokeAndWait(() -> {
+            var rb1 = new JRadioButton("rb1");
+            var rb2 = new JRadioButton("rb2");
+            var rb3 = new JRadioButton("rb3");
+            var group = new KButtonGroup<>(rb1, rb2, rb3);
+            var events = new ArrayList<KButtonGroupEvent<JRadioButton>>();
+            group.addListener(events::add);
+            rb2.setSelected(true);
+            Assertions.assertEquals(1, events.size());
+            KButtonGroupEvent<JRadioButton> event = events.get(0);
+            Assertions.assertEquals(rb2, event.getSelectedButton());
+            Assertions.assertNull(event.getPrevSelectedButton());
+            Assertions.assertEquals(group, event.getSource());
 
-        rb2.setSelected(true);
-        Assertions.assertEquals(1, events.size());
+            rb2.setSelected(true);
+            Assertions.assertEquals(1, events.size());
 
-        rb3.setSelected(true);
-        Assertions.assertEquals(2, events.size());
-        event = events.get(1);
-        Assertions.assertEquals(rb3, event.getSelectedButton());
-        Assertions.assertEquals(rb2, event.getPrevSelectedButton());
-        Assertions.assertEquals(group, event.getSource());
+            rb3.setSelected(true);
+            Assertions.assertEquals(2, events.size());
+            event = events.get(1);
+            Assertions.assertEquals(rb3, event.getSelectedButton());
+            Assertions.assertEquals(rb2, event.getPrevSelectedButton());
+            Assertions.assertEquals(group, event.getSource());
+        });
+    }
+
+    @Test
+    public void addItemListener_validState() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            var rb1 = new JRadioButton("rb1");
+            var rb2 = new JRadioButton("rb2");
+            var rb3 = new JRadioButton("rb3");
+            var group = new KButtonGroup<>(rb1, rb2, rb3);
+            rb2.setSelected(true);
+            var c = new AtomicInteger(0);
+            KButtonGroupListener<JRadioButton> listener = new KButtonGroupListener<JRadioButton>() {
+                @Override
+                public void onSelectionChange(KButtonGroupEvent<JRadioButton> e) {
+                    c.incrementAndGet();
+                    Assertions.assertEquals(e.getSelectedButton(), rb1);
+                    Assertions.assertEquals(e.getPrevSelectedButton(), rb2);
+                    Assertions.assertTrue(rb1.isSelected());
+                    Assertions.assertFalse(rb2.isSelected());
+                    Assertions.assertFalse(rb3.isSelected());
+                }
+            };
+            group.addListener(listener);
+            rb1.setSelected(true);
+            Assertions.assertEquals(1, c.get()); // make sure the listener has been called exactly once
+            group.removeListener(listener);
+
+            listener = new KButtonGroupListener<JRadioButton>() {
+                @Override
+                public void onSelectionChange(KButtonGroupEvent<JRadioButton> e) {
+                    c.incrementAndGet();
+                    Assertions.assertEquals(e.getSelectedButton(), rb3);
+                    Assertions.assertEquals(e.getPrevSelectedButton(), rb1);
+                    Assertions.assertFalse(rb1.isSelected());
+                    Assertions.assertFalse(rb2.isSelected());
+                    Assertions.assertTrue(rb3.isSelected());
+                }
+            };
+            group.addListener(listener);
+            rb3.setSelected(true);
+            Assertions.assertEquals(2, c.get());
+        });
     }
 
     @Test

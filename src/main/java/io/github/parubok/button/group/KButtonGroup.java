@@ -36,7 +36,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
         var b = (K) e.getSource();
         if (b.isSelected()) {
             if (listeners.getListenerCount() > 0) {
-                var event = new KButtonGroupEvent<K>(KButtonGroup.this, b, lastSelectedButton);
+                var event = new KButtonGroupEvent<>(KButtonGroup.this, b, lastSelectedButton);
                 for (KButtonGroupListener<K> listener : listeners.getListeners(KButtonGroupListener.class)) {
                     listener.onSelectionChange(event);
                 }
@@ -206,7 +206,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
 
     @Override
     public String toString() {
-        return getClass().getName()
+        return getClass().getSimpleName()
                 + "[autoSelectFirstButton=" + isAutoSelectFirstButton()
                 + ",buttons=" + getButtons() + "]";
     }

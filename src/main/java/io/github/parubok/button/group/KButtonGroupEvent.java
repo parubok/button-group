@@ -30,4 +30,11 @@ public class KButtonGroupEvent<K extends AbstractButton> extends EventObject {
     public K getPrevSelectedButton() {
         return prevSelectedButton;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName()
+                + "[selectedButton=" + getSelectedButton()
+                + ",prevSelectedButton=" + getPrevSelectedButton() + "]";
+    }
 }

@@ -174,6 +174,7 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
 
     /**
      * @return Maximum button index in the group.
+     * @throws NoSuchElementException If the group is empty.
      */
     public int getLastIndex() {
         if (buttons.isEmpty()) {

@@ -127,7 +127,8 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
     }
 
     /**
-     * @param listener The group will delegate button 'selected' event to this listener.
+     * @param listener The group will delegate button's 'selected' {@link java.awt.event.ItemEvent} to this
+     * listener.
      */
     public void addItemListener(ItemListener listener) {
         listenerList.add(ItemListener.class, listener);

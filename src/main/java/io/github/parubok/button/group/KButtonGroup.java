@@ -30,16 +30,19 @@ import java.util.Objects;
 public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implements Iterable<K> {
 
     private final boolean autoSelectFirstButton;
-    private final EventListenerList listeners = new EventListenerList();
+    private final EventListenerList listenerList = new EventListenerList();
     private K lastSelectedButton;
 
     private final ItemListener buttonListener = e -> {
         var b = (K) e.getSource();
         if (b.isSelected()) {
-            if (listeners.getListenerCount() > 0) {
+            if (listenerList.getListenerCount() > 0) {
                 var event = new KButtonGroupEvent<>(KButtonGroup.this, b, lastSelectedButton);
-                for (KButtonGroupListener<K> listener : listeners.getListeners(KButtonGroupListener.class)) {
+                for (KButtonGroupListener<K> listener : listenerList.getListeners(KButtonGroupListener.class)) {
                     listener.onSelectionChange(event);
+                }
+                for (ItemListener itemListener : listenerList.getListeners(ItemListener.class)) {
+                    itemListener.itemStateChanged(e);
                 }
             }
             lastSelectedButton = b;
@@ -116,11 +119,22 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
      * @implSpec No event is fired if the selection becomes empty.
      */
     public void addListener(KButtonGroupListener<K> listener) {
-        listeners.add(KButtonGroupListener.class, listener);
+        listenerList.add(KButtonGroupListener.class, listener);
     }
 
     public void removeListener(KButtonGroupListener<K> listener) {
-        listeners.remove(KButtonGroupListener.class, listener);
+        listenerList.remove(KButtonGroupListener.class, listener);
+    }
+
+    /**
+     * @param listener The group will delegate button 'selected' event to this listener.
+     */
+    public void addItemListener(ItemListener listener) {
+        listenerList.add(ItemListener.class, listener);
+    }
+
+    public void removeItemListener(ItemListener listener) {
+        listenerList.remove(ItemListener.class, listener);
     }
 
     /**

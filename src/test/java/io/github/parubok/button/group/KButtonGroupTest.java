@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
+import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -77,6 +78,22 @@ public class KButtonGroupTest {
             var rb2 = new JRadioButton("rb2");
             var rb3 = new JRadioButton("rb3");
             var group = new KButtonGroup<>(rb1, rb2, rb3);
+            var events = new ArrayList<ItemEvent>();
+            group.addItemListener(events::add);
+            rb2.setSelected(true);
+            Assertions.assertEquals(1, events.size());
+            ItemEvent event = events.get(0);
+            Assertions.assertEquals(rb2, event.getSource());
+        });
+    }
+
+    @Test
+    public void addListener() throws Exception {
+        SwingUtilities.invokeAndWait(() -> {
+            var rb1 = new JRadioButton("rb1");
+            var rb2 = new JRadioButton("rb2");
+            var rb3 = new JRadioButton("rb3");
+            var group = new KButtonGroup<>(rb1, rb2, rb3);
             var events = new ArrayList<KButtonGroupEvent<JRadioButton>>();
             group.addListener(events::add);
             rb2.setSelected(true);
@@ -103,7 +120,7 @@ public class KButtonGroupTest {
      * valid selection state.
      */
     @Test
-    public void addItemListener_validState() throws Exception {
+    public void addListener_validState() throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             var rb1 = new JRadioButton("rb1");
             var rb2 = new JRadioButton("rb2");

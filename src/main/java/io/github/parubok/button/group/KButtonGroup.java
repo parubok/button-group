@@ -36,6 +36,12 @@ public class KButtonGroup<K extends AbstractButton> extends ButtonGroup implemen
     private final ItemListener buttonListener = e -> {
         var b = (K) e.getSource();
         if (b.isSelected()) {
+
+            // assert that only one button is selected:
+            for (AbstractButton button : buttons) {
+                assert button.equals(b) || !button.isSelected();
+            }
+
             if (listenerList.getListenerCount() > 0) {
                 var event = new KButtonGroupEvent<>(KButtonGroup.this, b, lastSelectedButton);
                 for (KButtonGroupListener<K> listener : listenerList.getListeners(KButtonGroupListener.class)) {
